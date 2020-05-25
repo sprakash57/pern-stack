@@ -10,7 +10,6 @@ export const main = async (event, context) => {
     };
     try {
         let result = await dynamoDbLib.get(params);
-        console.log('get', result);
         if (!result.Item) {
             delete params.Key;
             params = {
