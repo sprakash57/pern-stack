@@ -15,6 +15,12 @@ service: contact-me
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-dotenv-plugin
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -25,7 +31,7 @@ provider:
   runtime: nodejs12.x
 
 # you can overwrite defaults here
-#  stage: dev
+  stage: prod
   region: ap-south-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -34,19 +40,24 @@ provider:
       Action:
         - "ses:SendEmail"
       Resource: ["*"]
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
+    - Effect: "Allow"
+      Action:
+        - "s3:GetObject"
+      Resource: "arn:aws:s3:::${env:Bucket}/*"
+    - Effect: "Allow"
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+      Resource: "arn:aws:dynamodb:ap-south-1:*:*"
 #        Fn::Join:
 #          - ""
 #          - - "arn:aws:s3:::"
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
 # you can add packaging information here
 #package:
@@ -58,13 +69,34 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  contactMe:
-    handler: handler.contactMe
+  contactForm:
+    handler: contactForm.main
     events:
       - http:
           method: post
-          path: contact-me
+          path: contactForm
           cors: true
+  download:
+    handler: download.main
+    environment:
+      Key: ${env:Key}
+      Bucket: ${env:Bucket}
+    events:
+      - http:
+          method: get
+          path: download
+          cors: true
+  blogViews:
+    handler: blogViews.main
+    environment:
+      TableName: ${env:TableName}
+      events:
+        - http:
+            method: get
+            path: blogViews/slugId
+            cors: true
+
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

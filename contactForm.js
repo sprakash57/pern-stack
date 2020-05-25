@@ -1,6 +1,4 @@
-'use strict';
-
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 const SES = new AWS.SES();
 
 function validateOrigins(input) {
@@ -25,11 +23,11 @@ function sendEmail(formData, callback) {
         Data: 'SUPR form submission',
       },
     }
-  }
+  };
   SES.sendEmail(emailParams, callback);
 }
 
-module.exports.contactMe = (event, context, callback) => {
+export const main = (event, context, callback) => {
   const origin = event.headers.Origin || event.headers.origin;
   const formData = JSON.parse(event.body);
 
@@ -53,7 +51,7 @@ module.exports.contactMe = (event, context, callback) => {
       body: JSON.stringify({
         message: error ? error.message : data
       })
-    }
+    };
     callback(null, response);
   });
 };
