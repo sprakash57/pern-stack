@@ -11,7 +11,7 @@
     "serverless": "^1.71.3"
   },
   "devDependencies": {
-    "serverless-bundle": "^1.4.0",
+    "serverless-bundle": "^1.6.0",
     "serverless-dotenv-plugin": "^2.4.2"
   }
 }

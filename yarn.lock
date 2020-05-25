@@ -8266,7 +8266,7 @@ serialize-javascript@^2.1.2:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
   integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
 
-serverless-bundle@^1.4.0:
+serverless-bundle@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/serverless-bundle/-/serverless-bundle-1.6.0.tgz#fd81f45aba68668d73da6afdfb5e88d15bb4af30"
   integrity sha512-E5a3z8vEPqpPPBkYjtb+WigLTiSDPZITLOMeIPYvt926Afpe9GMEwuaYtu6fP75NcofDEC+Xeg4PIJX94RePiw==
