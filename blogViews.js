@@ -1,7 +1,9 @@
 import dynamoDbLib from "./libs/dynamoDb-lib";
+import validateOrigins from "./libs/validate-origin";
 
 export const main = async (event, context) => {
     const origin = event.headers.Origin || event.headers.origin;
+    if (!validateOrigins(origin)) return;
     let viewCount = 1;
     let params = {
         TableName: process.env.TableName,

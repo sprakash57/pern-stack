@@ -1,8 +1,10 @@
 import AWS from 'aws-sdk';
+import validateOrigins from './libs/validate-origin';
 const S3 = new AWS.S3();
 
 export const main = async (event, context) => {
     const origin = event.headers.Origin || event.headers.origin;
+    if (!validateOrigins(origin)) return;
     try {
         const data = await S3.getSignedUrl('getObject', { Bucket: process.env.Bucket, Key: process.env.Key, Expires: 60 });
         return {

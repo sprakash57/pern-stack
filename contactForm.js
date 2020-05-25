@@ -1,10 +1,6 @@
 import AWS from 'aws-sdk';
+import validateOrigins from './libs/validate-origin';
 const SES = new AWS.SES();
-
-function validateOrigins(input) {
-  const VALID = ['http://localhost:8000'];
-  return VALID.filter(origin => origin === input)[0] || VALID[0];
-}
 
 function sendEmail(formData, callback) {
   const emailParams = {
@@ -31,15 +27,14 @@ export const main = (event, context, callback) => {
   const origin = event.headers.Origin || event.headers.origin;
   const formData = JSON.parse(event.body);
 
+  //Catch robots
   if (formData.honeyPot) {
     console.log('Spam');
     return;
   }
 
-  if (!validateOrigins(origin)) {
-    console.log('Invalid origin');
-    return;
-  }
+  //Invalid source of request
+  if (!validateOrigins(origin)) return;
 
   sendEmail(formData, function (error, data) {
     const response = {
