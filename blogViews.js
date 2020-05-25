@@ -1,6 +1,7 @@
 import dynamoDbLib from "./libs/dynamoDb-lib";
 
 export const main = async (event, context) => {
+    const origin = event.headers.Origin || event.headers.origin;
     let viewCount = 1;
     let params = {
         TableName: process.env.TableName,
@@ -38,7 +39,10 @@ export const main = async (event, context) => {
         }
         return {
             statusCode: 201,
-            headers: { 'Content-Type': 'text/plain' },
+            headers: {
+                'Content-Type': 'application/json',
+                "Access-Control-Allow-Origin": origin
+            },
             body: JSON.stringify(viewCount)
         };
     } catch (error) {

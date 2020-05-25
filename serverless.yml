@@ -90,11 +90,11 @@ functions:
     handler: blogViews.main
     environment:
       TableName: ${env:TableName}
-      events:
-        - http:
-            method: get
-            path: blogViews/slugId
-            cors: true
+    events:
+      - http:
+          method: get
+          path: blogViews/{slugId}
+          cors: true
 
 
 #    The following are a few example events you can configure
