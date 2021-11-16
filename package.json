@@ -7,7 +7,7 @@
   "author": "Sunny Prakash <sunny.prakashgm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.683.0",
+    "aws-sdk": "^2.814.0",
     "serverless": "^1.71.3"
   },
   "devDependencies": {
