@@ -1,6 +1,0 @@
-{
-    "headers": {
-        "origin": "http://localhost:8000"
-    },
-    "body": "{\"name\": \"Sender Name\",\"replyTo\": \"12prakash.sunny@gmail.com\",\"phone\": \"8084508679\",\"message\": \"Sender message\"}"
-}
